@@ -1,5 +1,5 @@
 {
-  "name": "taiwan_opendata_weather",
+  "name": "taiwan_weather_get",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",

@@ -56,7 +56,7 @@ async function process_city_data(opendata_url) {
     //檢查table是否存在沒有則創建
     await check_table(city);
 
-    //依照鄉鎮寫入天氣資料
+
 
     //鄉鎮市的天氣
     const weather = pagedata.data.cwbopendata.dataset.locations.location;
