@@ -1,6 +1,6 @@
 //開放資料api_key
-function get_city_weather(key) {
-    const api_key = key;
+function get_city_weather(api_key) {
+
     for (let i = 3; i < 89; i += 4) {
         let city_code = "0" + i;
 
@@ -30,36 +30,42 @@ async function process_city_data(opendata_url) {
         url: opendata_url,
         "Content-Type": "application/json",
     }).catch((err) => {
-        console.log("失敗");
-        console.log(opendata_url);
+        console.log("網址獲取失敗 : " + opendata_url);
     });
-    if (pagedata == null) return;
+
+    if (pagedata == null) return
+
 
     // 取得城市名
-    let locationsName = pagedata.data.cwbopendata.dataset.locations.locationsName;
+    const locationsName = pagedata.data.cwbopendata.dataset.locations.locationsName;
 
     //查詢縣市英文
     city = citys[locationsName];
 
-    // 取得資料時間
+    // 取得更新時間
     let update = pagedata.data.cwbopendata.dataset.datasetInfo.update;
 
     update = update_time_filter(update);
 
-    //檢測資料變動
+    // 檢查更新時間
     const need_update = await update_check(city, update);
 
     if (need_update == false) return;
 
-    //鄉鎮市的天氣
-    const weather = pagedata.data.cwbopendata.dataset.locations.location;
 
-    //僅查資料庫table是否存在沒有則創建
+    //檢查table是否存在沒有則創建
     await check_table(city);
 
     //依照鄉鎮寫入天氣資料
-    for (let i = 0; i < weather.length; i++) {
-        for (let n = 0; n < weather[i].weatherElement[0].time.length; n++) {
+
+    //鄉鎮市的天氣
+    const weather = pagedata.data.cwbopendata.dataset.locations.location;
+
+    weather.forEach((e, i) => {
+
+
+        weather[i].weatherElement[0].time.forEach((e, n) => {
+
             const locationName = weather[i].locationName;
 
             //獲取時間，並處理
@@ -93,6 +99,7 @@ async function process_city_data(opendata_url) {
 
             //傳送寫入請求
             add_city_table_data(city, data);
-        }
-    }
+        });
+
+    });
 }

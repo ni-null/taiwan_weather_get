@@ -35,22 +35,3 @@ function star_end_time_filter(startTime, endTime) {
     endTime_arry[1]
   );
 }
-
-
-function taiwan_star_end_time_filter(startTime, endTime) {
-
-
-
-  startTime = startTime.replace("2020-", "")
-  startTime = startTime.replace("18:00:00", "晚上6點")
-  startTime = startTime.replace("12:00:00", "中午12點")
-  startTime = startTime.replace("06:00:00", "早上6點")
-  startTime = startTime.replace("00:00:00", "凌晨12點")
-
-  endTime = endTime.replace("2020-", "");
-  endTime = endTime.replace("18:00:00", "晚上6點");
-  endTime = endTime.replace("12:00:00", "中午12點");
-  endTime = endTime.replace("06:00:00", "早上6點");
-
-  return startTime + "~" + endTime;
-}

@@ -67,6 +67,7 @@ fs.open("./api_key.txt", function (err, fd) {
           const time = new Date()
           console.log(time)
           get_city_weather(key)
+          get_taiwan_weather(key)
         });
 
         get_city_weather(key)

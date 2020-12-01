@@ -1,8 +1,7 @@
 //傳入城市api網址並解析,建立資料庫及寫入對應資料
-async function get_taiwan_weather(key) {
-    const api_key = key;
+async function get_taiwan_weather(api_key) {
     const opendata_url =
-        "https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=" +
+        "https://opendata.cwb.gov.tw/fileapi/v1/opendataapi/F-C0032-001?Authorization=" +
         api_key +
         "&downloadType=WEB&format=JSON";
 
@@ -12,19 +11,29 @@ async function get_taiwan_weather(key) {
         url: opendata_url,
         "Content-Type": "application/json",
     }).catch((err) => {
-        console.log("失敗");
-        console.log(opendata_url);
+        console.log("網址獲取失敗 : " + opendata_url);
     });
-    if (pagedata == null) return;
+    if (pagedata == null) return
 
 
 
-    console.log(pagedata.data.records.location[0])
+    // 取得更新時間
+    let update = pagedata.data.cwbopendata.dataset.datasetInfo.update;
+
+    update = update_time_filter(update);
+
+    // 檢查更新時間
+    const need_update = await update_check('taiwan', update);
+
+    if (need_update == false) return;
 
 
+    //檢查table是否存在沒有則創建
     await check_taiwan_table()
 
-    pagedata.data.records.location.forEach(e => {
+    const weather = pagedata.data.cwbopendata.dataset.location
+
+    weather.forEach(e => {
 
 
         const locationName = e.locationName
@@ -44,19 +53,12 @@ async function get_taiwan_weather(key) {
 
             const startTime = PoP.time[i].startTime
             const endTime = PoP.time[i].endTime
-            const time = taiwan_star_end_time_filter(startTime, endTime)
+            const time = star_end_time_filter(startTime, endTime)
 
             const WeatherDescription = Wx.time[i].parameter.parameterName
 
 
-            console.log(locationName)
-            console.log("平均溫度" + temp)
-            console.log("降雨機率" + PoP12)
-            console.log("天氣狀態 : " + WeatherDescription)
-            console.log(time)
 
-            console.log("")
-            console.log("")
 
             const data = {
                 cityname: locationName,
@@ -74,11 +76,6 @@ async function get_taiwan_weather(key) {
 
 
     });
-
-    //創建資料表
-
-
-
 
 
 }
