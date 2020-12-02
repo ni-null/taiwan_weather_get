@@ -20,7 +20,7 @@ const con_mysql_info = require("./json/con_mysql_info.json");
 
 const con = mysql.createConnection(con_mysql_info);
 
-con.connect();
+
 
 con.connect(function (err) {
   if (err) {
@@ -67,8 +67,7 @@ fs.open("./api_key.txt", function (err, fd) {
       if (key.length != 0) {
         //每20分鐘運行一次
         schedule.scheduleJob('*/20 * * * * ', function () {
-          const time = new Date()
-          console.log(time)
+          console.log('執行時間: ' + new Date())
           get_city_weather(key)
           get_taiwan_weather(key)
         });
