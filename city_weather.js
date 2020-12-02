@@ -35,15 +35,14 @@ async function process_city_data(opendata_url) {
 
     if (pagedata == null) return
 
+    const pageinfo = pagedata.data.cwbopendata.dataset
 
-    // 取得城市名
-    const locationsName = pagedata.data.cwbopendata.dataset.locations.locationsName;
+    // 取得城市名，查詢縣市英文
 
-    //查詢縣市英文
-    city = citys[locationsName];
+    city = citys[pageinfo.locations.locationsName];
 
     // 取得更新時間
-    let update = pagedata.data.cwbopendata.dataset.datasetInfo.update;
+    let update = pageinfo.datasetInfo.update;
 
     update = update_time_filter(update);
 
@@ -64,33 +63,34 @@ async function process_city_data(opendata_url) {
     weather.forEach((e, i) => {
 
 
-        weather[i].weatherElement[0].time.forEach((e, n) => {
+        e.weatherElement[0].time.forEach((s, n) => {
 
-            const locationName = weather[i].locationName;
+            const locationName = e.locationName;
 
             //獲取時間，並處理
-            let startTime = weather[i].weatherElement[0].time[n].startTime;
-            const time = star_end_time_filter(startTime);
+            const time = time_filter(e.weatherElement[0].time[n].startTime);
+            const time_1 = time[0]
+            const time_2 = time[1]
 
             //獲取氣溫
-            const T = weather[i].weatherElement[0].time[n].elementValue.value + "";
+            const T = e.weatherElement[0].time[n].elementValue.value;
 
             //獲取降雨機率
-            const PoP12h =
-                weather[i].weatherElement[9].time[n].elementValue.value + "";
+            const PoP12h = e.weatherElement[9].time[n].elementValue.value;
 
             //獲取降雨機率
             const WeatherDescription =
-                weather[i].weatherElement[14].time[n].elementValue.value.split(
-                    "。"
-                )[0] + "";
+                e.weatherElement[12].time[n].elementValue[0].value
+
+
 
             //整理數據
             const data = {
                 cityname: locationName,
                 temp: T,
                 rain: PoP12h,
-                time: time,
+                time_1: time_1,
+                time_2: time_2,
                 WeatherDescription: WeatherDescription,
             };
 

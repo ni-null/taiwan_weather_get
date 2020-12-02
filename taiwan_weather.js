@@ -52,8 +52,12 @@ async function get_taiwan_weather(api_key) {
             const PoP12 = PoP.time[i].parameter.parameterName
 
             const startTime = PoP.time[i].startTime
-            const endTime = PoP.time[i].endTime
-            const time = star_end_time_filter(startTime, endTime)
+
+            const time = time_filter(startTime)
+
+
+            const time_1 = time[0]
+            const time_2 = time[1]
 
             const WeatherDescription = Wx.time[i].parameter.parameterName
 
@@ -64,7 +68,8 @@ async function get_taiwan_weather(api_key) {
                 cityname: locationName,
                 temp: temp,
                 rain: PoP12,
-                time: time,
+                time_1: time_1,
+                time_2: time_2,
                 WeatherDescription: WeatherDescription,
             }
 

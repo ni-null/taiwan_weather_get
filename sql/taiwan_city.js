@@ -25,7 +25,8 @@ function creat_taiwan() {
         "cityname VARCHAR(50)," +
         " temp VARCHAR(8)," +
         " rain VARCHAR(8)," +
-        " time VARCHAR(80)," +
+        " time_1 VARCHAR(16)," +
+        " time_2 VARCHAR(16)," +
         " WeatherDescription VARCHAR(200))"
     con.query(sql, function (err, result) {
         if (err) console.log('創建資料表失敗')
