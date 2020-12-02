@@ -20,13 +20,16 @@ const con_mysql_info = require("./json/con_mysql_info.json");
 
 const con = mysql.createConnection(con_mysql_info);
 
+con.connect();
+
 con.connect(function (err) {
   if (err) {
     console.log("mysql 連接失敗");
-    return;
+
   }
   console.log("mysql 連接成功");
 });
+
 
 //時間過濾
 eval(fs.readFileSync("./function/time_filter.js") + "");

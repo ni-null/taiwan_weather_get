@@ -2,6 +2,7 @@
 
 (function () {
   const sql = 'show tables like "conf"';
+
   con.query(sql, (error, results) => {
     if (results[0] == null) {
       creat_conf();
@@ -28,8 +29,7 @@ async function creat_conf() {
 
   await creat_conf_table();
 
-  ob_ct.forEach((e, i) => {
-
+  for (let i = 0; i < ob_ct.length; i++) {
     const data = {
       city_name: ob_ct[i],
       table_name: citys[ob_ct[i]],
@@ -40,11 +40,7 @@ async function creat_conf() {
     con.query(sql, data, function (error) {
       if (error) console.log("寫入conf預設資料失敗！");
     });
-
-  });
-
-
-
+  }
 }
 
 //寫入更新時間到設定檔

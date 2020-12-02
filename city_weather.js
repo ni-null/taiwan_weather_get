@@ -70,10 +70,7 @@ async function process_city_data(opendata_url) {
 
             //獲取時間，並處理
             let startTime = weather[i].weatherElement[0].time[n].startTime;
-            let endTime = weather[i].weatherElement[0].time[n].endTime;
-
-
-            const time = star_end_time_filter(startTime, endTime);
+            const time = star_end_time_filter(startTime);
 
             //獲取氣溫
             const T = weather[i].weatherElement[0].time[n].elementValue.value + "";

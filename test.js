@@ -1,5 +1,0 @@
-function nene() {
-
-    const pagedata =
-
-}
