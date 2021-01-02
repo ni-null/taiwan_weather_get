@@ -20,11 +20,10 @@ npm i
 
 創建 api_key.txt 並於裡面填入你的 api key
 
-myslq 設定檔
+myslq 設定檔內填入你的資料庫密碼及名稱
 
 ```
 mysql.js
-
 ```
 
 ## 運行
