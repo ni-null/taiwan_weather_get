@@ -63,7 +63,6 @@ function get_city_weather(url) {
   return new Promise(async (resolve, reject) => {
     //取得資料
     let responsed = await axios.get(url)
-    console.log(responsed)
     responsed = responsed.data.cwaopendata.dataset
 
     //城市中文名
