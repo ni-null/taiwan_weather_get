@@ -63,7 +63,8 @@ function get_city_weather(url) {
   return new Promise(async (resolve, reject) => {
     //取得資料
     let responsed = await axios.get(url)
-    responsed = responsed.data.cwbopendata.dataset
+    console.log(responsed)
+    responsed = responsed.data.cwaopendata.dataset
 
     //城市中文名
     const city_name_che = responsed.locations.locationsName
@@ -114,7 +115,7 @@ async function get_taiwan_weather(api_key) {
 
   //取得資料
   let responsed = await axios.get(url)
-  responsed = responsed.data.cwbopendata.dataset
+  responsed = responsed.data.cwaopendata.dataset
 
   //城市中文名
   const name_che = "台灣"
