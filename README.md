@@ -20,10 +20,24 @@ npm i
 
 創建 api_key.txt 並於裡面填入你的 api key
 
-myslq 設定檔內填入你的資料庫密碼及名稱
+創建 mysql.js 設定檔內填入你的資料庫密碼及名稱
 
 ```
-mysql.js
+/* mysql  */
+const mysql = require("mysql")
+
+const pool = mysql.createPool({
+  connectionLimit: 40,
+  host: "localhost",
+  user: "root",
+  password: "",
+  database: "weather",
+  multipleStatements: true,
+})
+
+module.exports = pool
+
+
 ```
 
 ## 運行
@@ -31,6 +45,5 @@ mysql.js
 ```
 npm  start
 ```
-運行時會檢測一次，之後每20分鐘運行檢測一次
 
-
+運行時會檢測一次，之後每 20 分鐘運行檢測一次
