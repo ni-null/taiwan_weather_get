@@ -47,7 +47,7 @@ async function city_weather(api_key) {
     if (city_code.length < 3) city_code = "0" + city_code
 
     const url =
-      "https://opendata.cwb.gov.tw/fileapi/v1/opendataapi/F-D0047-" + city_code + "?Authorization=" + api_key + "&downloadType=WEB&format=JSON"
+      "https://opendata.cwa.gov.tw/fileapi/v1/opendataapi/F-D0047-" + city_code + "?Authorization=" + api_key + "&downloadType=WEB&format=JSON"
 
     //請求間格
     try {
