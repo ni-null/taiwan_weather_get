@@ -110,7 +110,7 @@ function get_city_weather(url) {
 
 //城市天氣  - 資料處理
 async function get_taiwan_weather(api_key) {
-  const url = "https://opendata.cwb.gov.tw/fileapi/v1/opendataapi/F-D0047-091?Authorization=" + api_key + "&downloadType=WEB&format=JSON"
+  const url = "https://opendata.cwa.gov.tw/fileapi/v1/opendataapi/F-D0047-091?Authorization=" + api_key + "&downloadType=WEB&format=JSON"
 
   //取得資料
   let responsed = await axios.get(url)
